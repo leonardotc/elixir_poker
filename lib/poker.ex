@@ -41,9 +41,10 @@ defmodule Poker do
 
   defp not_uniq(ranks), do: length(Enum.uniq(ranks)) == length(ranks)
 
-  def kind(4, list) when 0 < length(list) < 5 do
+  def kind(n, list) when 0 < length(list) < 5 do
     Enum.reduce(list, zero_map(list), fn el, acc -> %{ acc | el => acc[el] + 1 } end)
-    
+    |> Enum.filter(fn {k, v} -> v == n end)
+    |> Enum.map(fn {k, v} -> v end)
   end
 
   defp zero_map(ranks) do
